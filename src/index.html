@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Script Studio - Cinematic Script Journal</title>
+    <script src="https://js.puter.com/v2/"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎬 Script Studio</h1>
+            <p>Your Personal Cinematic Script Journal & AI Story Assistant</p>
+        </div>
+
+        <div class="main-content">
+            <div class="sidebar">
+                <button class="btn" onclick="showNewScriptForm()">📝 New Script</button>
+                <button class="btn btn-secondary" onclick="showGuide()">📚 Script Guide</button>
+                
+                <div class="script-list">
+                    <h3>Your Scripts</h3>
+                    <div id="scriptsList"></div>
+                </div>
+            </div>
+
+            <div class="main-panel">
+                <!-- Welcome Screen -->
+                <div id="welcomeScreen">
+                    <h2>Welcome to Script Studio!</h2>
+                    <p>Create, store, and improve your cinematic scripts with AI assistance.</p>
+                    
+                    <div class="guide-step">
+                        <span class="step-number">1</span>
+                        <strong>Create:</strong> Start with your script idea and basic structure
+                    </div>
+                    <div class="guide-step">
+                        <span class="step-number">2</span>
+                        <strong>Develop:</strong> Add scenes, characters, and dialogue
+                    </div>
+                    <div class="guide-step">
+                        <span class="step-number">3</span>
+                        <strong>Improve:</strong> Use AI to enhance and refine your script
+                    </div>
+                    <div class="guide-step">
+                        <span class="step-number">4</span>
+                        <strong>Store:</strong> Save all your scripts in the cloud
+                    </div>
+
+                    <button class="btn" onclick="showNewScriptForm()">Get Started</button>
+                </div>
+
+                <!-- New Script Form -->
+                <div id="newScriptForm" class="hidden">
+                    <h2>Create New Script</h2>
+                    
+                    <div class="tabs">
+                        <div class="tab active" onclick="showTab('basicInfo')">Basic Info</div>
+                        <div class="tab" onclick="showTab('scriptContent')">Script Content</div>
+                        <div class="tab" onclick="showTab('aiImprove')">AI Enhancement</div>
+                    </div>
+
+                    <!-- Basic Info Tab -->
+                    <div id="basicInfo" class="tab-content active">
+                        <div class="form-group">
+                            <label for="scriptTitle">Script Title</label>
+                            <div class="input-with-ai">
+                                <input type="text" id="scriptTitle" placeholder="Enter your script title">
+                                <button class="btn btn-ai-small" onclick="aiHelpField('scriptTitle', 'title')">🤖 AI Help</button>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="scriptGenre">Genre</label>
+                            <select id="scriptGenre">
+                                <option value="drama">Drama</option>
+                                <option value="comedy">Comedy</option>
+                                <option value="horror">Horror</option>
+                                <option value="thriller">Thriller</option>
+                                <option value="romance">Romance</option>
+                                <option value="action">Action</option>
+                                <option value="sci-fi">Sci-Fi</option>
+                                <option value="fantasy">Fantasy</option>
+                                <option value="documentary">Documentary</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="scriptLogline">Logline (One sentence summary)</label>
+                            <div class="input-with-ai">
+                                <textarea id="scriptLogline" rows="2" placeholder="A brief, compelling description of your story in one sentence"></textarea>
+                                <button class="btn btn-ai-small" onclick="aiHelpField('scriptLogline', 'logline')">🤖 AI Help</button>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="scriptSynopsis">Synopsis</label>
+                            <div class="input-with-ai">
+                                <textarea id="scriptSynopsis" rows="4" placeholder="A longer summary of your story, including main characters and plot points"></textarea>
+                                <button class="btn btn-ai-small" onclick="aiHelpField('scriptSynopsis', 'synopsis')">🤖 AI Help</button>
+                            </div>
+                        </div>
+
+                        <button class="btn" onclick="showTab('scriptContent')">Next: Script Content</button>
+                    </div>
+
+                    <!-- Script Content Tab -->
+                    <div id="scriptContent" class="tab-content">
+                        <div class="script-format">
+                            <h3>Script Format Guide</h3>
+                            <div class="format-section">
+                                <div class="format-label">Scene Heading:</div>
+                                <code>EXT./INT. LOCATION - TIME OF DAY</code>
+                            </div>
+                            <div class="format-section">
+                                <div class="format-label">Action:</div>
+                                <code>Description of what's happening on screen</code>
+                            </div>
+                            <div class="format-section">
+                                <div class="format-label">Character:</div>
+                                <code>CHARACTER NAME</code>
+                            </div>
+                            <div class="format-section">
+                                <div class="format-label">Dialogue:</div>
+                                <code>What the character says</code>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="scriptContent">Script Content</label>
+                            <div class="input-with-ai">
+                                <textarea id="scriptContentArea" class="script-editor" rows="20" placeholder="Start writing your script here...
+
+Example:
+FADE IN:
+
+EXT. COFFEE SHOP - DAY
+
+A bustling street corner. SARAH (25), determined but nervous, approaches the entrance.
+
+SARAH
+(to herself)
+You can do this.
+
+She takes a deep breath and enters.
+
+INT. COFFEE SHOP - CONTINUOUS
+
+The bell jingles as Sarah enters. She scans the room, looking for someone."></textarea>
+                                <button class="btn btn-ai-small" onclick="aiHelpField('scriptContentArea', 'script')">🤖 AI Help</button>
+                            </div>
+                        </div>
+
+                        <button class="btn btn-secondary" onclick="showTab('basicInfo')">Back</button>
+                        <button class="btn" onclick="showTab('aiImprove')">Next: AI Enhancement</button>
+                        <button class="btn btn-secondary" onclick="saveScript()">Save Script</button>
+                    </div>
+
+                    <!-- AI Improvement Tab -->
+                    <div id="aiImprove" class="tab-content">
+                        <div class="ai-panel">
+                            <h3>🤖 AI Script Enhancement</h3>
+                            <p>Let AI help improve your script while staying true to your original vision.</p>
+                            
+                            <div class="form-group">
+                                <label for="improvementType">What would you like to improve?</label>
+                                <select id="improvementType">
+                                    <option value="dialogue">Enhance Dialogue</option>
+                                    <option value="character">Develop Characters</option>
+                                    <option value="pacing">Improve Pacing</option>
+                                    <option value="description">Enhance Descriptions</option>
+                                    <option value="structure">Improve Structure</option>
+                                    <option value="general">General Enhancement</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="aiInstructions">Specific Instructions (Optional)</label>
+                                <textarea id="aiInstructions" rows="3" placeholder="Any specific aspects you'd like the AI to focus on or avoid..."></textarea>
+                            </div>
+
+                            <button class="btn btn-ai" onclick="improveWithAI()">✨ Enhance with AI</button>
+                            
+                            <div id="aiLoading" class="loading">
+                                <div class="spinner"></div>
+                                <p>AI is working on your script...</p>
+                            </div>
+
+                            <div id="aiSuggestions" class="hidden">
+                                <h4>AI Suggestions:</h4>
+                                <div id="aiResult"></div>
+                                <button class="btn" onclick="applyAISuggestions()">Apply Suggestions</button>
+                                <button class="btn btn-secondary" onclick="hideAISuggestions()">Keep Original</button>
+                            </div>
+                        </div>
+
+                        <button class="btn btn-secondary" onclick="showTab('scriptContent')">Back</button>
+                        <button class="btn" onclick="saveScript()">Save Script</button>
+                    </div>
+                </div>
+
+                <!-- Script Viewer -->
+                <div id="scriptViewer" class="hidden">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                        <h2 id="viewerTitle">Script Title</h2>
+                        <div>
+                            <button class="btn btn-secondary" onclick="editScript()">Edit</button>
+                            <button class="btn btn-danger" onclick="deleteScript()">Delete</button>
+                        </div>
+                    </div>
+                    
+                    <div id="scriptDetails"></div>
+                    <div id="scriptText"></div>
+                </div>
+
+                <!-- Guide Screen -->
+                <div id="guideScreen" class="hidden">
+                    <h2>📚 Script Writing Guide</h2>
+                    
+                    <div class="guide-step">
+                        <h3>1. Start with a Strong Concept</h3>
+                        <p>Every great script begins with a compelling idea. Write a clear logline that captures the essence of your story in one sentence.</p>
+                    </div>
+
+                    <div class="guide-step">
+                        <h3>2. Develop Your Characters</h3>
+                        <p>Create memorable characters with clear motivations, flaws, and goals. Each character should have a unique voice.</p>
+                    </div>
+
+                    <div class="guide-step">
+                        <h3>3. Structure Your Story</h3>
+                        <p>Follow the three-act structure: Setup (Act I), Confrontation (Act II), and Resolution (Act III).</p>
+                    </div>
+
+                    <div class="guide-step">
+                        <h3>4. Write Visual Action</h3>
+                        <p>Remember you're writing for the screen. Focus on what the audience can see and hear.</p>
+                    </div>
+
+                    <div class="guide-step">
+                        <h3>5. Format Properly</h3>
+                        <p>Use proper screenplay format: scene headings, action lines, character names, and dialogue.</p>
+                    </div>
+
+                    <button class="btn" onclick="showWelcome()">Back to Home</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
